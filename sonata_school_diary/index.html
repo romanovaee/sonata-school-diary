@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Главная — SONATA</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="index.html">
+                <span class="brand-mark">S</span>
+                <span>
+                    <span class="brand-name">SONATA</span>
+                    <span class="brand-sub">музыкальная школа</span>
+                </span>
+            </a>
+            <button class="menu-toggle" aria-label="Открыть меню" onclick="document.querySelector('.main-nav').classList.toggle('open')">☰</button>
+            <nav class="main-nav">
+                <a href="index.html" class="active">Главная</a>
+                <a href="schedule.html" class="">Расписание</a>
+                <a href="attendance.html" class="">Посещаемость</a>
+                <a href="assignments.html" class="">Задания</a>
+                <a href="grades.html" class="">Успеваемость</a>
+            </nav>
+            <div class="header-actions">
+                <a href="profile.html" id="headerProfile">Личный кабинет</a>
+                <a class="login-link" href="login.html" id="headerLogin">Войти</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container hero-grid">
+                <div>
+                    <div class="eyebrow">Музыкальная школа · Электронный дневник</div>
+                    <h1>Музыка начинается с внимания к деталям.</h1>
+                    <p>Единое пространство для учеников, преподавателей и родителей. Расписание, учебные задания и результаты занятий — в понятном и спокойном формате.</p>
+                    <div class="hero-actions">
+                        <a class="button primary" href="login.html">Войти в дневник</a>
+                        <a class="button" href="#about">О школе</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <img src="images/vinyl-record.jpeg" alt="Виниловая пластинка на проигрывателе">
+                    <span class="hero-visual-caption">SONATA · пространство музыки</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="about">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <div class="eyebrow">О школе</div>
+                        <h2>Точность. Практика. Результат.</h2>
+                        <p class="section-intro">SONATA объединяет учебный процесс в одном месте. Здесь можно следить за занятиями, получать обратную связь и видеть собственный прогресс.</p>
+                    </div>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-number">01</div>
+                        <h3>Индивидуальный подход</h3>
+                        <p>Программа обучения учитывает уровень подготовки, инструмент и цели каждого ученика.</p>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-number">02</div>
+                        <h3>Регулярная практика</h3>
+                        <p>Понятное расписание и домашние задания помогают выстроить устойчивый учебный ритм.</p>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-number">03</div>
+                        <h3>Обратная связь</h3>
+                        <p>Оценки, комментарии и рекомендации преподавателей собраны в электронном дневнике.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background:#f8f7f4">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <div class="eyebrow">Новости и объявления</div>
+                        <h2>Жизнь школы</h2>
+                    </div>
+                    <span class="muted small">Актуальная информация</span>
+                </div>
+                <div class="news-grid">
+                    <article class="news-feature news-feature-image">
+                        <img src="images/choir.jpeg" alt="Участники музыкального хора с нотными партитурами">
+                        <div class="news-feature-content">
+                        <div class="eyebrow">Объявление · 12 ноября</div>
+                        <div>
+                            <h3>Подготовка к зимнему академическому концерту</h3>
+                            <p class="muted small">Началась подготовка к традиционному зимнему концерту. Уточните программу выступлений у своего преподавателя.</p>
+                        </div>
+                        <a class="text-link" href="login.html">Перейти в дневник</a>
+                        </div>
+                    </article>
+                    <div class="news-list">
+                        <div class="news-row">
+                            <small>Учебный процесс</small>
+                            <h4>График промежуточной аттестации</h4>
+                            <p class="muted small">Даты и аудитории будут опубликованы в расписании.</p>
+                        </div>
+                        <div class="news-row">
+                            <small>Для учеников</small>
+                            <h4>Как подготовиться к прослушиванию</h4>
+                            <p class="muted small">Повторите программу и заранее проверьте ноты.</p>
+                        </div>
+                        <div class="news-row">
+                            <small>Школьная жизнь</small>
+                            <h4>Открытые занятия в конце месяца</h4>
+                            <p class="muted small">Следите за объявлениями преподавателей.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container" style="display:flex;justify-content:space-between;align-items:center;gap:25px;flex-wrap:wrap">
+                <div>
+                    <div class="eyebrow">Электронный дневник</div>
+                    <h2>Всё важное — в одном месте.</h2>
+                    <p class="section-intro">Войдите, чтобы посмотреть личное расписание, задания и результаты обучения.</p>
+                </div>
+                <a class="button primary" href="login.html">Открыть дневник</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <a class="brand" href="index.html">
+                <span class="brand-mark" style="border-color:#aaa">S</span>
+                <span>
+                    <span class="brand-name">SONATA</span>
+                    <span class="brand-sub">музыкальная школа</span>
+                </span>
+            </a>
+            <p>© 2026 SONATA. Электронный дневник музыкальной школы.</p>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Посещаемость — SONATA</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="index.html">
+                <span class="brand-mark">S</span>
+                <span>
+                    <span class="brand-name">SONATA</span>
+                    <span class="brand-sub">музыкальная школа</span>
+                </span>
+            </a>
+            <button class="menu-toggle" aria-label="Открыть меню" onclick="document.querySelector('.main-nav').classList.toggle('open')">☰</button>
+            <nav class="main-nav">
+                <a href="index.html" class="">Главная</a>
+                <a href="schedule.html" class="">Расписание</a>
+                <a href="attendance.html" class="active">Посещаемость</a>
+                <a href="assignments.html" class="">Задания</a>
+                <a href="grades.html" class="">Успеваемость</a>
+            </nav>
+            <div class="header-actions">
+                <a href="profile.html" id="headerProfile">Личный кабинет</a>
+                <a class="login-link" href="login.html" id="headerLogin">Войти</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <div class="eyebrow">Учебный процесс / 02</div>
+                <h1 class="page-title">Посещаемость</h1>
+                <p class="page-desc">История посещения занятий и сводная статистика за учебный период.</p>
+            </div>
+        </section>
+
+        <section class="page-image-section" aria-label="Музыкальная фотография">
+            <div class="container">
+             
+            </div>
+        </section>
+
+        <section class="content">
+            <div class="container">
+                <div class="stat-grid" id="attendanceStats"></div>
+                <div class="toolbar">
+                    <h2>История занятий</h2>
+                    <select id="attendanceFilter" class="icon-button">
+                        <option value="all">Все занятия</option>
+                        <option value="Присутствовал">Присутствовал</option>
+                        <option value="Отсутствовал">Отсутствовал</option>
+                        <option value="Опоздал">Опоздал</option>
+                    </select>
+                </div>
+                <div class="panel table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Дата</th>
+                                <th>Предмет</th>
+                                <th>Преподаватель</th>
+                                <th>Статус</th>
+                                <th>Комментарий</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendanceRows"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <a class="brand" href="index.html">
+                <span class="brand-mark" style="border-color:#aaa">S</span>
+                <span>
+                    <span class="brand-name">SONATA</span>
+                    <span class="brand-sub">музыкальная школа</span>
+                </span>
+            </a>
+            <p>© 2026 SONATA. Электронный дневник музыкальной школы.</p>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+    <script src="js/app.js"></script>
+</body>
+</html>

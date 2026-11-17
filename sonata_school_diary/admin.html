@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Админка — SONATA</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="index.html"><span class="brand-mark">S</span><span><span class="brand-name">SONATA</span><span class="brand-sub">музыкальная школа</span></span></a>
+            <div class="header-actions"><a class="login-link" href="#" onclick="localStorage.removeItem('sonataSchoolUser'); location.href='index.html';">Выйти</a></div>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <h1 class="page-title">Панель администратора</h1>
+                <p class="page-desc">Добавление новых данных напрямую в базу PostgreSQL.</p>
+            </div>
+        </section>
+
+        <section class="content">
+            <div class="container">
+                <div class="two-col">
+                    <section class="panel panel-pad">
+                        <h2 class="panel-title">Добавить задание в БД</h2>
+                        <form id="adminAddTask" class="form-grid">
+                            <div class="field full"><label>Название</label><input id="tTitle" required></div>
+                            <div class="field"><label>Предмет</label><input id="tSubject" required></div>
+                            <div class="field"><label>Срок</label><input id="tDue" placeholder="20.11.2026" required></div>
+                            <div class="field full"><label>Описание</label><input id="tDesc"></div>
+                            <div class="field full"><button class="button primary" type="submit">Сохранить задание</button></div>
+                        </form>
+                    </section>
+
+                    <section class="panel panel-pad">
+                        <h2 class="panel-title">Добавить оценку в БД</h2>
+                        <form id="adminAddGrade" class="form-grid">
+                            <div class="field"><label>Дата</label><input id="gDate" placeholder="20.11.2026" required></div>
+                            <div class="field"><label>Предмет</label><input id="gSubject" required></div>
+                            <div class="field"><label>Работа</label><input id="gWork" required></div>
+                            <div class="field"><label>Оценка</label><select id="gGrade"><option>5</option><option>4</option><option>3</option><option>2</option></select></div>
+                            <div class="field full"><label>Комментарий</label><input id="gComment"></div>
+                            <div class="field full"><button class="button primary" type="submit">Сохранить оценку</button></div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <script>
+        document.getElementById('adminAddTask').onsubmit = async (e) => {
+            e.preventDefault();
+            const data = {
+                title: document.getElementById('tTitle').value,
+                subject: document.getElementById('tSubject').value,
+                due: document.getElementById('tDue').value,
+                description: document.getElementById('tDesc').value
+            };
+            const res = await fetch('/api/admin/add-task', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+            if (res.ok) { alert('Задание сохранено в БД!'); e.target.reset(); }
+            else alert('Ошибка');
+        };
+
+        document.getElementById('adminAddGrade').onsubmit = async (e) => {
+            e.preventDefault();
+            const data = {
+                date: document.getElementById('gDate').value,
+                subject: document.getElementById('gSubject').value,
+                work: document.getElementById('gWork').value,
+                grade: document.getElementById('gGrade').value,
+                comment: document.getElementById('gComment').value
+            };
+            const res = await fetch('/api/admin/add-grade', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+            if (res.ok) { alert('Оценка сохранена в БД!'); e.target.reset(); }
+            else alert('Ошибка');
+        };
+    </script>
+</body>
+</html>

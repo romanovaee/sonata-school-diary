@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Регистрация — SONATA</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="index.html">
+                <span class="brand-mark">S</span>
+                <span>
+                    <span class="brand-name">SONATA</span>
+                    <span class="brand-sub">музыкальная школа</span>
+                </span>
+            </a>
+            <button class="menu-toggle" aria-label="Открыть меню" onclick="document.querySelector('.main-nav').classList.toggle('open')">☰</button>
+            <nav class="main-nav">
+                <a href="index.html" class="">Главная</a>
+                <a href="schedule.html" class="">Расписание</a>
+                <a href="attendance.html" class="">Посещаемость</a>
+                <a href="assignments.html" class="">Задания</a>
+                <a href="grades.html" class="">Успеваемость</a>
+            </nav>
+            <div class="header-actions">
+                <a href="profile.html" id="headerProfile">Личный кабинет</a>
+                <a class="login-link" href="login.html" id="headerLogin">Войти</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="auth-shell">
+        <aside class="auth-aside">
+            <div>
+                <div class="eyebrow" style="color:#b8a58b">SONATA / Новый аккаунт</div>
+                <h2>Начните с удобного учебного пространства.</h2>
+                <p>Создайте учётную запись ученика, чтобы пользоваться электронным дневником школы.</p>
+            </div>
+            <div class="small" style="color:#aaa">Регистрация ученика</div>
+        </aside>
+        <section class="auth-form-side">
+            <form class="auth-form" id="registerForm">
+                <div class="eyebrow">Новая учётная запись</div>
+                <h1>Регистрация</h1>
+                <p>Заполните основные данные. После регистрации вы сможете войти в дневник.</p>
+                <div class="field">
+                    <label for="fullName">Фамилия и имя</label>
+                    <input id="fullName" required placeholder="Например, Анна Смирнова">
+                </div>
+                <div class="field">
+                    <label for="regEmail">Электронная почта</label>
+                    <input id="regEmail" type="email" required placeholder="name@example.com">
+                </div>
+                <div class="field">
+                    <label for="instrument">Инструмент / специальность</label>
+                    <input id="instrument" placeholder="Фортепиано">
+                </div>
+                <div class="field">
+                    <label for="regPassword">Пароль</label>
+                    <input id="regPassword" type="password" minlength="6" required placeholder="Не менее 6 символов">
+                </div>
+                <button class="button primary" style="width:100%;margin-top:8px" type="submit">Создать аккаунт</button>
+                <div class="auth-bottom">Уже зарегистрированы? <a href="login.html">Войти</a></div>
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <a class="brand" href="index.html">
+                <span class="brand-mark" style="border-color:#aaa">S</span>
+                <span>
+                    <span class="brand-name">SONATA</span>
+                    <span class="brand-sub">музыкальная школа</span>
+                </span>
+            </a>
+            <p>© 2026 SONATA. Электронный дневник музыкальной школы.</p>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+    <script src="js/app.js"></script>
+</body>
+</html>

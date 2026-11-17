@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Вход — SONATA</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="index.html">
+                <span class="brand-mark">S</span>
+                <span>
+                    <span class="brand-name">SONATA</span>
+                    <span class="brand-sub">музыкальная школа</span>
+                </span>
+            </a>
+            <button class="menu-toggle" aria-label="Открыть меню" onclick="document.querySelector('.main-nav').classList.toggle('open')">☰</button>
+            <nav class="main-nav">
+                <a href="index.html" class="">Главная</a>
+                <a href="schedule.html" class="">Расписание</a>
+                <a href="attendance.html" class="">Посещаемость</a>
+                <a href="assignments.html" class="">Задания</a>
+                <a href="grades.html" class="">Успеваемость</a>
+            </nav>
+            <div class="header-actions">
+                <a href="profile.html" id="headerProfile">Личный кабинет</a>
+                <a class="login-link" href="login.html" id="headerLogin">Войти</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="auth-shell">
+        <aside class="auth-aside">
+            <div>
+                <div class="eyebrow" style="color:#b8a58b">SONATA / Личный доступ</div>
+                <h2>Ваш учебный процесс — в одном пространстве.</h2>
+                <p>Войдите в электронный дневник, чтобы посмотреть расписание, задания и результаты занятий.</p>
+            </div>
+            <div class="small" style="color:#aaa">Музыкальная школа SONATA · 2026</div>
+        </aside>
+        <section class="auth-form-side">
+            <form class="auth-form" id="loginForm">
+                <div class="eyebrow">Авторизация</div>
+                <h1>Вход в систему</h1>
+                <p>Введите данные своей учётной записи.</p>
+                <div class="field">
+                    <label for="email">Электронная почта</label>
+                    <input id="email" type="email" required placeholder="name@example.com">
+                </div>
+                <div class="field">
+                    <label for="password">Пароль</label>
+                    <input id="password" type="password" required placeholder="Введите пароль">
+                </div>
+                <button class="button primary" style="width:100%;margin-top:8px" type="submit">Войти</button>
+                <div class="auth-bottom">Нет аккаунта? <a href="register.html">Зарегистрироваться</a></div>
+                <div class="notice">
+                    Демо-доступ: student@sonata.ru / sonata2026<br>
+                    Администратор: admin@sonata.ru / sonata2026<br>
+                    Преподаватель: teacher@sonata.ru / sonata2026
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <a class="brand" href="index.html">
+                <span class="brand-mark" style="border-color:#aaa">S</span>
+                <span>
+                    <span class="brand-name">SONATA</span>
+                    <span class="brand-sub">музыкальная школа</span>
+                </span>
+            </a>
+            <p>© 2026 SONATA. Электронный дневник музыкальной школы.</p>
+        </div>
+    </footer>
+
+    <div class="toast" id="toast"></div>
+    <script src="js/app.js"></script>
+</body>
+</html>
