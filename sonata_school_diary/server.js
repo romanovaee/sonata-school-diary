@@ -7,15 +7,11 @@ const app = express();
 app.use(express.json());
 app.use(express.static(__dirname));
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
-
 const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
   database: 'sonata_db',
-  password: 'melk2008.r', 
+  password: 'melk2008.r', // ТВОЙ ПАРОЛЬ
   port: 5432,
 });
 
@@ -38,12 +34,12 @@ app.post('/api/register', async (req, res) => {
   }
 });
 
-// ВХОД (БЕЗ ПРОВЕРКИ ПАРОЛЯ - ЧТОБЫ ТЫ МОГЛА ЗАЙТИ)
+// ВХОД (БЕЗ ПРОВЕРКИ ПАРОЛЯ - ВРЕМЕННО)
 app.post('/api/login', async (req, res) => {
   try {
     const { email } = req.body;
     const result = await pool.query('SELECT u.*, r.code as role_code FROM users u JOIN roles r ON u.role_id = r.id WHERE u.email = $1', [email]);
-    if (result.rows.length === 0) return res.status(401).json({ error: 'Пользователь с такой почтой не найден' });
+    if (result.rows.length === 0) return res.status(401).json({ error: 'Нет такой почты' });
     
     const user = result.rows[0];
     res.json({ id: user.id, name: user.name, email: user.email, role: user.role_code });
@@ -52,14 +48,20 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-// ВЫВОД ДАННЫХ
+// ПОЛУЧЕНИЕ ДАННЫХ
 app.get('/api/schedule', async (req, res) => { const r = await pool.query('SELECT * FROM schedule ORDER BY id'); res.json(r.rows); });
 app.get('/api/assignments', async (req, res) => { const r = await pool.query('SELECT * FROM assignments ORDER BY id DESC'); res.json(r.rows); });
 app.get('/api/grades', async (req, res) => { const r = await pool.query('SELECT * FROM grades ORDER BY id DESC'); res.json(r.rows); });
 app.get('/api/attendance', async (req, res) => { const r = await pool.query('SELECT * FROM attendance ORDER BY id DESC'); res.json(r.rows); });
 
-// ДОБАВЛЕНИЕ ЗАДАНИЙ И ОЦЕНОК
-app.post('/api/admin/add-task', async (req, res) => {
+// ПРОВЕРКА ПРАВ АДМИНА
+const checkAdmin = (req, res, next) => {
+    if (req.body.email !== 'admin@sonata.ru') return res.status(403).json({ error: 'Доступ запрещен' });
+    next();
+};
+
+// ДОБАВЛЕНИЕ ДАННЫХ (АДМИН)
+app.post('/api/admin/add-task', checkAdmin, async (req, res) => {
   try {
     const { title, subject, due, description } = req.body;
     await pool.query('INSERT INTO assignments (user_id, title, subject, due, description, done) VALUES ($1, $2, $3, $4, $5, $6)', [1, title, subject, due, description, false]);
@@ -67,13 +69,35 @@ app.post('/api/admin/add-task', async (req, res) => {
   } catch (err) { res.status(500).json({ error: 'Ошибка' }); }
 });
 
-app.post('/api/admin/add-grade', async (req, res) => {
+app.post('/api/admin/add-grade', checkAdmin, async (req, res) => {
   try {
     const { date, subject, work, grade, comment } = req.body;
     await pool.query('INSERT INTO grades (user_id, date, subject, work, grade, comment) VALUES ($1, $2, $3, $4, $5, $6)', [1, date, subject, work, grade, comment]);
     res.status(201).json({ message: 'OK' });
   } catch (err) { res.status(500).json({ error: 'Ошибка' }); }
 });
+
+// НОВОЕ: ДОБАВЛЕНИЕ РАСПИСАНИЯ
+app.post('/api/admin/add-schedule', checkAdmin, async (req, res) => {
+  try {
+    const { day, time, subject, teacher, room } = req.body;
+    await pool.query('INSERT INTO schedule (day, time, subject, teacher, room) VALUES ($1, $2, $3, $4, $5)', [day, time, subject, teacher, room]);
+    res.status(201).json({ message: 'OK' });
+  } catch (err) { res.status(500).json({ error: 'Ошибка' }); }
+});
+
+// НОВОЕ: ДОБАВЛЕНИЕ ПОСЕЩАЕМОСТИ
+app.post('/api/admin/add-attendance', checkAdmin, async (req, res) => {
+  try {
+    const { date, subject, teacher, status, comment } = req.body;
+    await pool.query('INSERT INTO attendance (user_id, date, subject, teacher, status, comment) VALUES ($1, $2, $3, $4, $5, $6)', [1, date, subject, teacher, status, comment]);
+    res.status(201).json({ message: 'OK' });
+  } catch (err) { res.status(500).json({ error: 'Ошибка' }); }
+});
+
+// ОШИБКИ
+app.use((req, res) => res.status(404).sendFile(path.join(__dirname, '404.html')));
+app.use((err, req, res, next) => res.status(500).sendFile(path.join(__dirname, '500.html')));
 
 const PORT = 3000;
 app.listen(PORT, () => console.log(`СЕРВЕР РАБОТАЕТ: http://localhost:${PORT}`));

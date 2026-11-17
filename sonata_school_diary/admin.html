@@ -18,33 +18,64 @@
         <section class="page-hero">
             <div class="container">
                 <h1 class="page-title">Панель администратора</h1>
-                <p class="page-desc">Добавление новых данных напрямую в базу PostgreSQL.</p>
+                <p class="page-desc">Управление всеми данными школы.</p>
             </div>
         </section>
 
         <section class="content">
             <div class="container">
+                <!-- Формы для добавления -->
                 <div class="two-col">
+                    <!-- Задание -->
                     <section class="panel panel-pad">
-                        <h2 class="panel-title">Добавить задание в БД</h2>
+                        <h2 class="panel-title">Добавить задание</h2>
                         <form id="adminAddTask" class="form-grid">
                             <div class="field full"><label>Название</label><input id="tTitle" required></div>
                             <div class="field"><label>Предмет</label><input id="tSubject" required></div>
                             <div class="field"><label>Срок</label><input id="tDue" placeholder="20.11.2026" required></div>
                             <div class="field full"><label>Описание</label><input id="tDesc"></div>
-                            <div class="field full"><button class="button primary" type="submit">Сохранить задание</button></div>
+                            <div class="field full"><button class="button primary" type="submit">Сохранить</button></div>
                         </form>
                     </section>
 
+                    <!-- Оценка -->
                     <section class="panel panel-pad">
-                        <h2 class="panel-title">Добавить оценку в БД</h2>
+                        <h2 class="panel-title">Добавить оценку</h2>
                         <form id="adminAddGrade" class="form-grid">
                             <div class="field"><label>Дата</label><input id="gDate" placeholder="20.11.2026" required></div>
                             <div class="field"><label>Предмет</label><input id="gSubject" required></div>
                             <div class="field"><label>Работа</label><input id="gWork" required></div>
                             <div class="field"><label>Оценка</label><select id="gGrade"><option>5</option><option>4</option><option>3</option><option>2</option></select></div>
                             <div class="field full"><label>Комментарий</label><input id="gComment"></div>
-                            <div class="field full"><button class="button primary" type="submit">Сохранить оценку</button></div>
+                            <div class="field full"><button class="button primary" type="submit">Сохранить</button></div>
+                        </form>
+                    </section>
+                </div>
+
+                <div class="two-col" style="margin-top:20px;">
+                    <!-- Расписание -->
+                    <section class="panel panel-pad">
+                        <h2 class="panel-title">Добавить занятие в расписание</h2>
+                        <form id="adminAddSchedule" class="form-grid">
+                            <div class="field"><label>День</label><input id="sDay" placeholder="Понедельник" required></div>
+                            <div class="field"><label>Время</label><input id="sTime" placeholder="15:00–15:45" required></div>
+                            <div class="field"><label>Предмет</label><input id="sSubject" required></div>
+                            <div class="field"><label>Преподаватель</label><input id="sTeacher" required></div>
+                            <div class="field full"><label>Кабинет</label><input id="sRoom"></div>
+                            <div class="field full"><button class="button primary" type="submit">Сохранить</button></div>
+                        </form>
+                    </section>
+
+                    <!-- Посещаемость -->
+                    <section class="panel panel-pad">
+                        <h2 class="panel-title">Добавить отметку посещаемости</h2>
+                        <form id="adminAddAttendance" class="form-grid">
+                            <div class="field"><label>Дата</label><input id="aDate" placeholder="20.11.2026" required></div>
+                            <div class="field"><label>Предмет</label><input id="aSubject" required></div>
+                            <div class="field"><label>Преподаватель</label><input id="aTeacher" required></div>
+                            <div class="field"><label>Статус</label><select id="aStatus"><option>Присутствовал</option><option>Отсутствовал</option><option>Опоздал</option></select></div>
+                            <div class="field full"><label>Комментарий</label><input id="aComment"></div>
+                            <div class="field full"><button class="button primary" type="submit">Сохранить</button></div>
                         </form>
                     </section>
                 </div>
@@ -53,22 +84,26 @@
     </main>
     
     <script>
+        // Задание
         document.getElementById('adminAddTask').onsubmit = async (e) => {
             e.preventDefault();
             const data = {
+                email: 'admin@sonata.ru',
                 title: document.getElementById('tTitle').value,
                 subject: document.getElementById('tSubject').value,
                 due: document.getElementById('tDue').value,
                 description: document.getElementById('tDesc').value
             };
             const res = await fetch('/api/admin/add-task', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-            if (res.ok) { alert('Задание сохранено в БД!'); e.target.reset(); }
-            else alert('Ошибка');
+            if (res.ok) { alert('Задание сохранено!'); e.target.reset(); }
+            else alert('Ошибка прав');
         };
 
+        // Оценка
         document.getElementById('adminAddGrade').onsubmit = async (e) => {
             e.preventDefault();
             const data = {
+                email: 'admin@sonata.ru',
                 date: document.getElementById('gDate').value,
                 subject: document.getElementById('gSubject').value,
                 work: document.getElementById('gWork').value,
@@ -76,8 +111,40 @@
                 comment: document.getElementById('gComment').value
             };
             const res = await fetch('/api/admin/add-grade', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-            if (res.ok) { alert('Оценка сохранена в БД!'); e.target.reset(); }
-            else alert('Ошибка');
+            if (res.ok) { alert('Оценка сохранена!'); e.target.reset(); }
+            else alert('Ошибка прав');
+        };
+
+        // Расписание
+        document.getElementById('adminAddSchedule').onsubmit = async (e) => {
+            e.preventDefault();
+            const data = {
+                email: 'admin@sonata.ru',
+                day: document.getElementById('sDay').value,
+                time: document.getElementById('sTime').value,
+                subject: document.getElementById('sSubject').value,
+                teacher: document.getElementById('sTeacher').value,
+                room: document.getElementById('sRoom').value
+            };
+            const res = await fetch('/api/admin/add-schedule', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+            if (res.ok) { alert('Занятие добавлено!'); e.target.reset(); }
+            else alert('Ошибка прав');
+        };
+
+        // Посещаемость
+        document.getElementById('adminAddAttendance').onsubmit = async (e) => {
+            e.preventDefault();
+            const data = {
+                email: 'admin@sonata.ru',
+                date: document.getElementById('aDate').value,
+                subject: document.getElementById('aSubject').value,
+                teacher: document.getElementById('aTeacher').value,
+                status: document.getElementById('aStatus').value,
+                comment: document.getElementById('aComment').value
+            };
+            const res = await fetch('/api/admin/add-attendance', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+            if (res.ok) { alert('Посещаемость добавлена!'); e.target.reset(); }
+            else alert('Ошибка прав');
         };
     </script>
 </body>
